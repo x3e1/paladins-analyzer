@@ -1,0 +1,4 @@
+# Cross-file rules require verified precedence entries. Phase 1 ships with
+# no cross-file rules because verified_precedence.yaml is empty. They are
+# added as real Paladins precedence is captured.
+[]

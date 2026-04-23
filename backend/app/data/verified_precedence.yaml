@@ -1,0 +1,28 @@
+# Verified Paladins cross-file precedence.
+#
+# v1: narrow entries ONLY. Each entry must specify a single key.
+# Section-wide entries (key: "*") are a Phase-2 feature and are currently
+# rejected by the loader.
+#
+# Every entry is a falsifiable claim about runtime merge order observed on
+# a specific Paladins build. Entries without verified_on_build+verified_by
+# are rejected.
+#
+# NOTE: this repo has no direct access to a live Paladins install to do the
+# A/B observation. Below is a PLACEHOLDER example; real entries must be
+# captured via clean-install mutation tests and dated.
+
+# Example (commented out — intentionally left empty so v1 ships with zero
+# confident override findings until at least one pair is empirically verified):
+# - file_type_a: ChaosEngine
+#   file_type_b: ChaosSystemSettings
+#   section: SystemSettings
+#   key: MaxAnisotropy
+#   winner: ChaosSystemSettings
+#   value_kind: scalar
+#   verified_on_build: "2025.xx"
+#   verified_by: "clean-install A/B test: set value only in B, observed B live in game"
+#   notes: "Placeholder; replace once empirically verified."
+
+# Intentionally empty list. Uncomment and replace with real entries.
+[]

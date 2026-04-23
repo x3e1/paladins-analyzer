@@ -1,0 +1,391 @@
+# Paladins known-key registry.
+#
+# Provenance discipline (enforced by engine/registry.py schema):
+#   status    : confirmed | observed
+#   source    : clean_install | wild_config | dev_cross_reference
+#   game_build: Paladins build/version where evidence was captured
+#   first_seen: ISO date key entered the registry
+#   last_verified: ISO date key last seen in a clean install (REQUIRED for confirmed)
+#   value_kind: scalar | array | struct
+#   notes     : free-text
+#
+# `confirmed` entries below were verified against the VANILLA clean-install
+# dump captured on 2026-04-20 for Paladins build 8.1.5838.0 (8.1), Steam
+# launcher, on Windows 11 Home 25H2 (OS build 26200.8246). See
+# backend/tests/fixtures/clean_install/CLEAN_INSTALL_PROVENANCE.md.
+
+# ----- ChaosEngine.ini -----
+
+- file_type: ChaosEngine
+  section: Engine.Engine
+  key: bSmoothFrameRate
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+  notes: Gates engine-side frame smoothing cap. Clean-install default TRUE; Engine.GameEngine inheritance overrides to FALSE at runtime (v1 does not model class inheritance).
+
+- file_type: ChaosEngine
+  section: Engine.Engine
+  key: MaxSmoothedFrameRate
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+  notes: Clean-install default 62 in Engine.Engine; overridden to 0 by Engine.GameEngine.
+
+- file_type: ChaosEngine
+  section: Engine.Engine
+  key: MinSmoothedFrameRate
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+  notes: Clean-install default 22 in Engine.Engine; overridden to 0 by Engine.GameEngine.
+
+- file_type: ChaosEngine
+  section: Engine.Engine
+  key: bUseTextureStreaming
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+  notes: Clean-install default True. Also present in Engine.GameEngine.
+
+- file_type: ChaosEngine
+  section: Engine.GameEngine
+  key: bSmoothFrameRate
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+  notes: Class-inheritance override of Engine.Engine value. Clean install FALSE.
+
+- file_type: ChaosEngine
+  section: Engine.GameEngine
+  key: MaxSmoothedFrameRate
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+  notes: Class-inheritance override. Clean install 0.
+
+- file_type: ChaosEngine
+  section: Engine.GameEngine
+  key: MinSmoothedFrameRate
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+  notes: Class-inheritance override. Clean install 0.
+
+- file_type: ChaosEngine
+  section: Engine.GameEngine
+  key: MaxDeltaTime
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+  notes: Clean install 0.
+
+- file_type: ChaosEngine
+  section: Engine.GameEngine
+  key: bUseTextureStreaming
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+
+- file_type: ChaosEngine
+  section: DevOptions.Shaders
+  key: bAllowMultiThreadedShaderCompile
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+  notes: Clean install true.
+
+- file_type: ChaosEngine
+  section: IpDrv.TcpNetDriver
+  key: NetServerMaxTickRate
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+  notes: Clean install 27. Drives server-side net tick.
+
+- file_type: ChaosEngine
+  section: IpDrv.TcpNetDriver
+  key: LanServerMaxTickRate
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+
+- file_type: ChaosEngine
+  section: TextureStreaming
+  key: PoolSize
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+  notes: Clean install 158. Note ChaosSystemSettings/[SystemSettings]/TexturePoolSize also exists; Phase-1 does not verify precedence between them.
+
+- file_type: ChaosEngine
+  section: TextureStreaming
+  key: MemoryMargin
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+
+# ----- ChaosSystemSettings.ini -----
+
+- file_type: ChaosSystemSettings
+  section: SystemSettings
+  key: OneFrameThreadLag
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+  notes: Clean install True. (Original registry hypothesis placed this in ChaosEngine/[Engine.Engine]; clean install proved the correct location is here.)
+
+- file_type: ChaosSystemSettings
+  section: SystemSettings
+  key: UseVsync
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+  notes: Clean install False. Note the spelling — not 'bUseVSync'. Original registry hypothesis used 'bUseVSync' in [Engine.Engine]; the correct key is UseVsync here.
+
+- file_type: ChaosSystemSettings
+  section: SystemSettings
+  key: VsyncPresentInterval
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+
+- file_type: ChaosSystemSettings
+  section: SystemSettings
+  key: bUseTripleBuffering
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+
+- file_type: ChaosSystemSettings
+  section: SystemSettings
+  key: MaxAnisotropy
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+  notes: Clean install 4. Bucket5 sets 16. Values >16 are clamped by the renderer.
+
+- file_type: ChaosSystemSettings
+  section: SystemSettings
+  key: DetailMode
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+
+- file_type: ChaosSystemSettings
+  section: SystemSettings
+  key: MaxShadowResolution
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+
+- file_type: ChaosSystemSettings
+  section: SystemSettings
+  key: MotionBlur
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+
+- file_type: ChaosSystemSettings
+  section: SystemSettings
+  key: MotionBlurPause
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+
+- file_type: ChaosSystemSettings
+  section: SystemSettings
+  key: MotionBlurSkinning
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+
+- file_type: ChaosSystemSettings
+  section: SystemSettings
+  key: Bloom
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+
+- file_type: ChaosSystemSettings
+  section: SystemSettings
+  key: DepthOfField
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+
+- file_type: ChaosSystemSettings
+  section: SystemSettings
+  key: TexturePoolSize
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+  notes: Clean install 450. Coexists with ChaosEngine/[TextureStreaming]/PoolSize; Phase-1 does not verify which drives runtime.
+
+# ----- ChaosInput.ini -----
+
+- file_type: ChaosInput
+  section: Engine.PlayerInput
+  key: bEnableMouseSmoothing
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+  notes: Clean install false.
+
+- file_type: ChaosInput
+  section: Engine.PlayerInput
+  key: MouseSensitivity
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+
+- file_type: ChaosInput
+  section: Engine.PlayerInput
+  key: Bindings
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: array
+
+- file_type: ChaosInput
+  section: TgGame.TgPlayerInput
+  key: Bindings
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: array
+  notes: Paladins-specific input binding array layered over Engine.PlayerInput.
+
+- file_type: ChaosInput
+  section: TgGame.TgPlayerInput
+  key: bEnableAimAssist
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+
+- file_type: ChaosInput
+  section: TgGame.TgPlayerInput
+  key: GamepadSensitivityX
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+
+- file_type: ChaosInput
+  section: TgGame.TgPlayerInput
+  key: GamepadSensitivityY
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+
+# ----- ChaosLightmass.ini -----
+
+- file_type: ChaosLightmass
+  section: DevOptions.StaticLighting
+  key: bAllowMultiThreadedStaticLighting
+  status: confirmed
+  source: clean_install
+  game_build: "8.1.5838.0 (8.1)"
+  first_seen: 2026-04-20
+  last_verified: 2026-04-20
+  value_kind: scalar
+  notes: Offline lightmass pipeline toggle. No runtime effect.

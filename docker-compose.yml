@@ -1,0 +1,29 @@
+services:
+  backend:
+    build: ./backend
+    container_name: paladins-analyzer-backend
+    environment:
+      - PALADINS_ANALYZER_MAX_FILE_BYTES=${PALADINS_ANALYZER_MAX_FILE_BYTES:-1048576}
+      - PALADINS_ANALYZER_MAX_FILES=${PALADINS_ANALYZER_MAX_FILES:-10}
+      - PALADINS_ANALYZER_MAX_TOTAL_BYTES=${PALADINS_ANALYZER_MAX_TOTAL_BYTES:-6291456}
+      - PALADINS_ANALYZER_PARSE_TIMEOUT=${PALADINS_ANALYZER_PARSE_TIMEOUT:-5.0}
+    restart: unless-stopped
+    networks:
+      - internal
+
+  frontend:
+    build: ./frontend
+    container_name: paladins-analyzer-frontend
+    depends_on:
+      - backend
+    environment:
+      - BACKEND_URL=http://backend:8000
+    ports:
+      - "${PUBLIC_PORT:-3000}:3000"
+    restart: unless-stopped
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge

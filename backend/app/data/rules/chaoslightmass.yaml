@@ -1,0 +1,27 @@
+# ChaosLightmass.ini is consumed only by the offline static-lighting
+# builder. Runtime-tweak keys pasted here have no effect.
+
+- id: chaoslightmass.runtime_key_in_lightmass_file
+  title: "Runtime key placed in ChaosLightmass.ini"
+  file_type: ChaosLightmass
+  match:
+    key: "bSmoothFrameRate"
+    op: exists
+  severity: warning
+  issue_type: no_effect
+  effect: [nothing]
+  confidence: high
+  key_status_required: [confirmed, observed, unknown]
+  rationale: >
+    ChaosLightmass.ini is only read by the offline static-lighting pipeline.
+    Runtime engine keys such as bSmoothFrameRate have no effect when placed
+    in this file.
+  fix: null
+  fixtures:
+    red: |
+      [DevOptions.StaticLighting]
+      bAllowMultiThreadedStaticLighting=TRUE
+      bSmoothFrameRate=TRUE
+    green: |
+      [DevOptions.StaticLighting]
+      bAllowMultiThreadedStaticLighting=TRUE

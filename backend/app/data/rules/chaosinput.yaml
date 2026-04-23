@@ -1,0 +1,29 @@
+- id: chaosinput.mouse_smoothing_enabled
+  title: "Mouse smoothing enabled"
+  file_type: ChaosInput
+  match:
+    section: "Engine.PlayerInput"
+    key: "bEnableMouseSmoothing"
+    op: equals
+    value: "true"
+  severity: warning
+  issue_type: latency_risk
+  effect: [latency]
+  confidence: high
+  key_status_required: [confirmed, observed]
+  rationale: >
+    Mouse smoothing interpolates input samples, adding perceived input
+    latency and damping small aim corrections. For a twitch-aim game,
+    disabling it is usually preferable.
+  fix:
+    op: set
+    section: "Engine.PlayerInput"
+    key: "bEnableMouseSmoothing"
+    value: "FALSE"
+  fixtures:
+    red: |
+      [Engine.PlayerInput]
+      bEnableMouseSmoothing=TRUE
+    green: |
+      [Engine.PlayerInput]
+      bEnableMouseSmoothing=FALSE

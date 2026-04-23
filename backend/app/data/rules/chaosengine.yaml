@@ -1,0 +1,66 @@
+# ChaosEngine.ini rules.
+# Each rule ships with inline red (must-fire) and green (must-not) fixtures
+# that are asserted by tests/test_rules.py.
+
+- id: chaosengine.frame_smoothing_capping_below_refresh
+  title: "Frame smoothing capping FPS below typical refresh rate"
+  file_type: ChaosEngine
+  match:
+    section: "Engine.Engine"
+    key: "bSmoothFrameRate"
+    op: equals
+    value: "true"
+  require:
+    - section: "Engine.Engine"
+      key: "MaxSmoothedFrameRate"
+      op: lt
+      value: 60
+  severity: warning
+  issue_type: frame_pacing_risk
+  effect: [latency, frame_pacing]
+  confidence: high
+  key_status_required: [confirmed, observed]
+  rationale: >
+    When bSmoothFrameRate=TRUE, the engine caps frame rate at
+    MaxSmoothedFrameRate. A max below 60 injects wait time in the game
+    thread and caps frame pacing below most monitor refresh rates.
+  fix:
+    op: set
+    section: "Engine.Engine"
+    key: "bSmoothFrameRate"
+    value: "FALSE"
+  fixtures:
+    red: |
+      [Engine.Engine]
+      bSmoothFrameRate=TRUE
+      MaxSmoothedFrameRate=45
+    green: |
+      [Engine.Engine]
+      bSmoothFrameRate=FALSE
+      MaxSmoothedFrameRate=144
+
+- id: chaosengine.texture_pool_size_zero
+  title: "Texture streaming PoolSize set to 0 (disables pool)"
+  file_type: ChaosEngine
+  match:
+    section: "TextureStreaming"
+    key: "PoolSize"
+    op: equals
+    value: "0"
+  severity: critical
+  issue_type: dangerous_streaming
+  effect: [stability, visuals]
+  confidence: high
+  key_status_required: [confirmed, observed]
+  rationale: >
+    A PoolSize of 0 disables the texture streaming pool entirely, which
+    commonly produces stuck low-resolution textures and can destabilise
+    streaming under load.
+  fix: null
+  fixtures:
+    red: |
+      [TextureStreaming]
+      PoolSize=0
+    green: |
+      [TextureStreaming]
+      PoolSize=600

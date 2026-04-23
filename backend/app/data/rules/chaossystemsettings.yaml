@@ -1,0 +1,60 @@
+- id: chaossystemsettings.anisotropy_over_practical_max
+  title: "MaxAnisotropy set to an implausibly large value"
+  file_type: ChaosSystemSettings
+  match:
+    section: "SystemSettings"
+    key: "MaxAnisotropy"
+    op: gt
+    value: 16
+  severity: info
+  issue_type: resource_waste
+  effect: [fps]
+  confidence: high
+  key_status_required: [confirmed, observed]
+  rationale: >
+    Hardware anisotropic filtering caps at 16x. Values above 16 are clamped
+    and cost no extra quality while sometimes being misread by the engine.
+  fix:
+    op: set
+    section: "SystemSettings"
+    key: "MaxAnisotropy"
+    value: "16"
+  fixtures:
+    red: |
+      [SystemSettings]
+      MaxAnisotropy=32
+    green: |
+      [SystemSettings]
+      MaxAnisotropy=16
+
+- id: chaossystemsettings.one_frame_thread_lag_disabled
+  title: "OneFrameThreadLag=FALSE disables render-thread buffering"
+  file_type: ChaosSystemSettings
+  match:
+    section: "SystemSettings"
+    key: "OneFrameThreadLag"
+    op: equals
+    value: "false"
+  severity: warning
+  issue_type: stutter_risk
+  effect: [frame_pacing, stability]
+  confidence: medium
+  key_status_required: [confirmed, observed]
+  rationale: >
+    Disabling OneFrameThreadLag removes a buffered frame between the game
+    and render threads. This can trade a small latency reduction for
+    measurably worse frame pacing and higher stutter risk on CPU-bound
+    scenes. Clean-install default is True. Not recommended as a blanket
+    tweak.
+  fix:
+    op: set
+    section: "SystemSettings"
+    key: "OneFrameThreadLag"
+    value: "TRUE"
+  fixtures:
+    red: |
+      [SystemSettings]
+      OneFrameThreadLag=FALSE
+    green: |
+      [SystemSettings]
+      OneFrameThreadLag=TRUE
